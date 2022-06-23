@@ -9,7 +9,7 @@ const simulateRequest = (msg, time) => {
         if(typeof msg !== 'string') reject(new Error('Callback Error:'))
 
         setTimeout(() => {
-            resolve(msg);
+            resolve(msg.toUpperCase() + 'Promise Ok');
         }, time);
     });
 }
@@ -22,7 +22,7 @@ simulateRequest('First Request', rand(1,3))
     })
     .then(res => {
         console.log(res);
-        return simulateRequest(89, rand(1,3));
+        return simulateRequest('Get data from DB', rand(1,3));
     })
     .then(res => {
         console.log(res)
@@ -34,4 +34,21 @@ simulateRequest('First Request', rand(1,3))
     .catch(e => {
         console.log(e)
     })
-rand(1,9)
+
+//PROMISES ALL 
+
+const promises = [
+    'First value',
+    simulateRequest('Promise 1', 3000),
+    simulateRequest('Promise 2', 200),
+    simulateRequest('Promise 3', 1000),
+    'Another value to test'
+];
+
+Promise.all(promises)
+    .then(res => {
+        console.log(res)
+    })
+    .catch(err => {
+        console.log(err)
+    })
